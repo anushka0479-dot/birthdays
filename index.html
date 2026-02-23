@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎂</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  text-align: center;
+}
+
+#surpriseBtn {
+  padding: 20px 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  background: #ff4e8b;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#surpriseBtn:hover {
+  transform: scale(1.1);
+}
+
+#cakeSection {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cake {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  background: #ff9bb3;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.candle {
+  position: absolute;
+  top: -60px;
+  left: 90px;
+  width: 20px;
+  height: 60px;
+  background: white;
+  cursor: pointer;
+}
+
+.flame {
+  position: absolute;
+  top: -20px;
+  left: 2px;
+  width: 15px;
+  height: 20px;
+  background: orange;
+  border-radius: 50%;
+  animation: flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+.smoke {
+  position: absolute;
+  top: -30px;
+  left: -5px;
+  width: 30px;
+  height: 30px;
+  background: rgba(200,200,200,0.5);
+  border-radius: 50%;
+  display: none;
+  animation: rise 1s forwards;
+}
+
+@keyframes rise {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-50px); }
+}
+
+#message {
+  display: none;
+  font-size: 24px;
+  margin-top: 20px;
+  color: #fff;
+}
+</style>
+</head>
+
+<body>
+
+<button id="surpriseBtn">Click for Surprise 🎁</button>
+
+<div id="cakeSection">
+  <div class="cake">
+    <div class="candle" onclick="blowCandle()">
+      <div class="flame" id="flame"></div>
+      <div class="smoke" id="smoke"></div>
+    </div>
+  </div>
+  <div id="message">Happy Birthday ❤️ Make a wish ✨</div>
+</div>
+
+<audio id="song" src="hbd.mp3"></audio>
+
+<script>
+
+const btn = document.getElementById("surpriseBtn");
+const cakeSection = document.getElementById("cakeSection");
+
+btn.addEventListener("click", () => {
+  btn.style.display = "none";
+  cakeSection.style.display = "flex";
+
+  confetti({
+    particleCount: 200,
+    spread: 120,
+    origin: { y: 0.6 }
+  });
+});
+
+function blowCandle() {
+  document.getElementById("flame").style.display = "none";
+  const smoke = document.getElementById("smoke");
+  smoke.style.display = "block";
+
+  document.getElementById("song").play();
+
+  confetti({
+    particleCount: 150,
+    spread: 180
+  });
+
+  document.getElementById("message").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
